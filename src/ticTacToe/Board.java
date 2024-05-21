@@ -23,7 +23,19 @@ public class Board {
 		if (board[x][y] != ' ')
 			return false;
 
-		this.board[x][y] = mark;
+		board[x][y] = mark;
+		return true;
+	}
+
+	boolean checkDraw() {
+		for (int i = 0; i < dimensions; i++) {
+			for (int j = 0; j < dimensions; j++) {
+				// If there's an empty space, it's not a draw
+				if (this.board[i][j] == ' ') {
+					return false;
+				}
+			}
+		}
 		return true;
 	}
 

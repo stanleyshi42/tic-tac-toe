@@ -3,13 +3,14 @@ package ticTacToe;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.InputMismatchException;
+import java.util.Timer;
 
 public class TicTacToe {
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	Timer timer = new Timer();
 	Board board;
 	Player player1 = new Player('X');
 	Player player2;
-	boolean player1Turn;
 
 	public TicTacToe() {
 
@@ -34,6 +35,8 @@ public class TicTacToe {
 					coords = player2.turn();
 				}
 
+				System.out.println(coords[0] + " " + coords[1]);
+
 				if (!board.mark(mark, coords[0], coords[1])) {
 					throw new Exception("Error: Space already filled. Try again");
 				}
@@ -44,7 +47,14 @@ public class TicTacToe {
 					System.out.println(mark + " wins!!!!!!");
 					System.out.println("Hit enter to return");
 					reader.readLine();
-					return;
+					return; // Return to main menu
+				}
+				if (board.checkDraw()) {
+					board.printBoard();
+					System.out.println("Draw!");
+					System.out.println("Hit enter to return");
+					reader.readLine();
+					return; // Return to main menu
 				}
 
 			} catch (NumberFormatException e) {
