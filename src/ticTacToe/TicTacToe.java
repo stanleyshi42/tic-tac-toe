@@ -35,8 +35,6 @@ public class TicTacToe {
 					coords = player2.turn();
 				}
 
-				System.out.println(coords[0] + " " + coords[1]);
-
 				if (!board.mark(mark, coords[0], coords[1])) {
 					throw new Exception("Error: Space already filled. Try again");
 				}

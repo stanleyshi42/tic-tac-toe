@@ -1,6 +1,5 @@
 package ticTacToe;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class AiPlayer extends Player {
@@ -33,7 +32,9 @@ public class AiPlayer extends Player {
 		return randomCoords();
 	}
 
-	// TODO a lot of checks
+	// Makes a random move unless:
+	// It can make a winning move or
+	// Block the opponent's winning move
 	int[] mediumTurn() {
 		int x = -1;
 		int y = -1;
@@ -50,7 +51,8 @@ public class AiPlayer extends Player {
 							if (board.board[x][y] == ' ') {
 								return new int[] { x, y };
 							}
-						} else if (board.board[i][j + 2] == mark) {
+						}
+						if (board.board[i][j + 2] == mark) {
 							x = i;
 							y = j + 1;
 							if (board.board[x][y] == ' ') {
@@ -58,7 +60,8 @@ public class AiPlayer extends Player {
 							}
 						}
 
-					} else if (j - 1 >= 0 && j + 1 < board.dimensions) {
+					}
+					if (j - 1 >= 0 && j + 1 < board.dimensions) {
 						if (board.board[i][j - 1] == mark) {
 							x = i;
 							y = j + 1;
@@ -73,14 +76,16 @@ public class AiPlayer extends Player {
 							}
 						}
 
-					} else if (j - 1 >= 0 && j - 2 >= 0) {
+					}
+					if (j - 1 >= 0 && j - 2 >= 0) {
 						if (board.board[i][j - 1] == mark) {
 							x = i;
 							y = j - 2;
 							if (board.board[x][y] == ' ') {
 								return new int[] { x, y };
 							}
-						} else if (board.board[i][j - 1] == mark) {
+						}
+						if (board.board[i][j - 1] == mark) {
 							x = i;
 							y = j - 2;
 							if (board.board[x][y] == ' ') {
@@ -88,6 +93,7 @@ public class AiPlayer extends Player {
 							}
 						}
 					}
+
 					// Checks for vertical wins
 					if (i + 1 < board.dimensions && i + 2 < board.dimensions) {
 						if (board.board[i + 1][j] == mark) {
@@ -96,35 +102,24 @@ public class AiPlayer extends Player {
 							if (board.board[x][y] == ' ') {
 								return new int[] { x, y };
 							}
-						} else if (board.board[i + 2][j] == mark) {
+						}
+						if (board.board[i + 2][j] == mark) {
 							x = i + 1;
 							y = j;
 							if (board.board[x][y] == ' ') {
 								return new int[] { x, y };
 							}
 						}
-					} else if (i - 1 >= 0 && i + 1 < board.dimensions) {
+					}
+					if (i - 1 >= 0 && i + 1 < board.dimensions) {
 						if (board.board[i - 1][j] == mark) {
 							x = i + 1;
 							y = j;
 							if (board.board[x][y] == ' ') {
 								return new int[] { x, y };
 							}
-						} else if (board.board[i + 1][j] == mark) {
-							x = i - 1;
-							y = j;
-							if (board.board[x][y] == ' ') {
-								return new int[] { x, y };
-							}
 						}
-					} else if (i - 1 >= 0 && i - 2 >= 0) {
-						if (board.board[i - 1][j] == mark) {
-							x = i - 2;
-							y = j;
-							if (board.board[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						} else if (board.board[i - 2][j] == mark) {
+						if (board.board[i + 1][j] == mark) {
 							x = i - 1;
 							y = j;
 							if (board.board[x][y] == ' ') {
@@ -132,6 +127,23 @@ public class AiPlayer extends Player {
 							}
 						}
 					}
+					if (i - 1 >= 0 && i - 2 >= 0) {
+						if (board.board[i - 1][j] == mark) {
+							x = i - 2;
+							y = j;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i - 2][j] == mark) {
+							x = i - 1;
+							y = j;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+
 					// Checks for left diagonal wins
 					if (i + 1 < board.dimensions && j + 1 < board.dimensions && i + 2 < board.dimensions
 							&& j + 2 < board.dimensions) {
@@ -141,7 +153,8 @@ public class AiPlayer extends Player {
 							if (board.board[x][y] == ' ') {
 								return new int[] { x, y };
 							}
-						} else if (board.board[i + 2][j + 2] == mark) {
+						}
+						if (board.board[i + 2][j + 2] == mark) {
 							x = i + 1;
 							y = j + 1;
 							if (board.board[x][y] == ' ') {
@@ -149,17 +162,83 @@ public class AiPlayer extends Player {
 							}
 						}
 					}
+					if (i - 1 >= 0 && j - 1 >= 0 && i + 1 < board.dimensions && j + 1 < board.dimensions) {
+						if (board.board[i - 1][j - 1] == mark) {
+							x = i + 1;
+							y = j + 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i + 1][j + 1] == mark) {
+							x = i - 1;
+							y = j - 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+					if (i - 1 >= 0 && j - 1 >= 0 && i - 2 >= 0 && j - 2 >= 0) {
+						if (board.board[i - 1][j - 1] == mark) {
+							x = i - 2;
+							y = j - 2;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i - 2][j - 2] == mark) {
+							x = i - 1;
+							y = j - 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+
 					// Checks for right diagonal wins
-					if (i + 1 > board.dimensions && j - 1 >= 0 && i + 2 > board.dimensions && j - 2 >= 0) {
+					if (i + 1 < board.dimensions && j - 1 >= 0 && i + 2 < board.dimensions && j - 2 >= 0) {
 						if (board.board[i + 1][j - 1] == mark) {
 							x = i + 2;
 							y = j - 2;
 							if (board.board[x][y] == ' ') {
 								return new int[] { x, y };
 							}
-						} else if (board.board[i + 2][j - 2] == mark) {
+						}
+						if (board.board[i + 2][j - 2] == mark) {
 							x = i + 1;
 							y = j - 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+					if (i - 1 >= 0 && j + 1 < board.dimensions && i + 1 < board.dimensions && j - 1 >= 0) {
+						if (board.board[i - 1][j + 1] == mark) {
+							x = i + 1;
+							y = j - 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i + 1][j - 1] == mark) {
+							x = i - 1;
+							y = j + 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+					if (i - 1 >= 0 && j + 1 < board.dimensions && i - 2 >= 0 && j + 2 > board.dimensions) {
+						if (board.board[i - 1][j + 1] == mark) {
+							x = i - 2;
+							y = j + 2;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i - 2][j + 2] == mark) {
+							x = i - 1;
+							y = j + 1;
 							if (board.board[x][y] == ' ') {
 								return new int[] { x, y };
 							}
@@ -278,36 +357,7 @@ public class AiPlayer extends Player {
 			}
 		}
 
-		// If no move was chosen, make a random move
-		if (x == -1 | y == -1) {
-			return randomCoords();
-		}
-
-		if (board.board[x][y] == ' ')
-			return new int[] { x, y };
-
 		return randomCoords();
-	}
-
-	// Returns the coordinates of the AI's moves
-	private int[][] getOwnMarks() {
-		ArrayList<int[]> coordsList = new ArrayList<>();
-
-		for (int i = 0; i < board.dimensions; i++) {
-			for (int j = 0; j < board.dimensions; j++) {
-				if (board.board[i][j] == mark) {
-					coordsList.add(new int[] { i, j });
-				}
-			}
-		}
-
-		int[][] coords = new int[coordsList.size()][2];
-		int index = 0;
-		for (int[] coord : coordsList) {
-			coords[index] = coord;
-			index++;
-		}
-		return coords;
 	}
 
 	private int[] randomCoords() {
