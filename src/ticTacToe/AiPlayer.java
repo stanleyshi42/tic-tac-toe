@@ -353,6 +353,107 @@ public class AiPlayer extends Player {
 							}
 						}
 					}
+
+					// Blocks opponent's left diagonal wins
+					if (i + 1 < board.dimensions && j + 1 < board.dimensions && i + 2 < board.dimensions
+							&& j + 2 < board.dimensions) {
+						if (board.board[i + 1][j + 1] == 'X') {
+							x = i + 2;
+							y = j + 2;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i + 2][j + 2] == 'X') {
+							x = i + 1;
+							y = j + 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+					if (i - 1 >= 0 && j - 1 >= 0 && i + 1 < board.dimensions && j + 1 < board.dimensions) {
+						if (board.board[i - 1][j - 1] == 'X') {
+							x = i + 1;
+							y = j + 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i + 1][j + 1] == 'X') {
+							x = i - 1;
+							y = j - 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+					if (i - 1 >= 0 && j - 1 >= 0 && i - 2 >= 0 && j - 2 >= 0) {
+						if (board.board[i - 1][j - 1] == 'X') {
+							x = i - 2;
+							y = j - 2;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i - 2][j - 2] == 'X') {
+							x = i - 1;
+							y = j - 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+
+					// Blocks opponent's right diagonal wins
+					if (i + 1 < board.dimensions && j - 1 >= 0 && i + 2 < board.dimensions && j - 2 >= 0) {
+						if (board.board[i + 1][j - 1] == 'X') {
+							x = i + 2;
+							y = j - 2;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i + 2][j - 2] == 'X') {
+							x = i + 1;
+							y = j - 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+					if (i - 1 >= 0 && j + 1 < board.dimensions && i + 1 < board.dimensions && j - 1 >= 0) {
+						if (board.board[i - 1][j + 1] == 'X') {
+							x = i + 1;
+							y = j - 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i + 1][j - 1] == 'X') {
+							x = i - 1;
+							y = j + 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
+					if (i - 1 >= 0 && j + 1 < board.dimensions && i - 2 >= 0 && j + 2 > board.dimensions) {
+						if (board.board[i - 1][j + 1] == 'X') {
+							x = i - 2;
+							y = j + 2;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+						if (board.board[i - 2][j + 2] == 'X') {
+							x = i - 1;
+							y = j + 1;
+							if (board.board[x][y] == ' ') {
+								return new int[] { x, y };
+							}
+						}
+					}
 				}
 			}
 		}
