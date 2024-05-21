@@ -15,13 +15,11 @@ public class Board {
 			}
 		}
 
-		// TODO delete debugging stuff
-		checkWin('X');
-
 	}
 
-	// Takes an X or O move
+	// Marks the board with an X or O
 	boolean mark(char mark, int x, int y) {
+		// Checks if space is already marked
 		if (board[x][y] != ' ')
 			return false;
 
@@ -29,6 +27,7 @@ public class Board {
 		return true;
 	}
 
+	// Checks board for a win
 	boolean checkWin(char mark) {
 		for (int j = 0; j < this.dimensions; j++) {
 			for (int i = 0; i < this.dimensions; i++) {

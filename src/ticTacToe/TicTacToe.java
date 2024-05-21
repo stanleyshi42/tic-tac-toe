@@ -8,51 +8,51 @@ public class TicTacToe {
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	Board board;
 	Player player1 = new Player('X');
-	Player player2 = new Player('O');
-	boolean player1Turn = true;
+	Player player2;
+	boolean player1Turn;
 
 	public TicTacToe() {
 
 	}
 
 	private void gameLoop() {
+		boolean player1Turn = true;
 		while (true) {
 			try {
-				board.printBoard();
 				char mark;
-				String input;
+				int[] coords; // Coordinates for the player's move
+
+				board.printBoard();
 
 				if (player1Turn) {
-					mark = 'X';
 					System.out.println("Player 1's Turn!");
-				}
-
-				else {
-					mark = 'O';
+					mark = player1.mark;
+					coords = player1.turn();
+				} else {
 					System.out.println("Player 2's Turn!");
+					mark = player2.mark;
+					coords = player2.turn();
 				}
 
-				System.out.println("Select a row: ");
-				input = reader.readLine();
-				int rowInput = Integer.parseInt(input);
-
-				System.out.println("Select a column: ");
-				input = reader.readLine();
-				int colInput = Integer.parseInt(input);
-
-				if (!board.mark(mark, rowInput, colInput)) {
-					throw new Exception("Error: Space already filled");
+				if (!board.mark(mark, coords[0], coords[1])) {
+					throw new Exception("Error: Space already filled. Try again");
 				}
 
 				player1Turn = !player1Turn; // Alternate turns
 				if (board.checkWin(mark)) {
 					board.printBoard();
 					System.out.println(mark + " wins!!!!!!");
+					System.out.println("Hit enter to return");
+					reader.readLine();
 					return;
 				}
 
+			} catch (NumberFormatException e) {
+				System.out.println("Error: Invalid input");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.out.println("Error: Invalid input");
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
 	}
@@ -70,24 +70,40 @@ public class TicTacToe {
 					this.board = new Board(dimensions);
 				}
 
+				// Make a player or AI player
+				if (Integer.parseInt(menuInput) == 1) {
+					player2 = new Player('O');
+				} else if (Integer.parseInt(menuInput) == 2) {
+					player2 = new AiPlayer('O', 0, this.board);
+
+				} else if (Integer.parseInt(menuInput) == 3) {
+					player2 = new AiPlayer('O', 1, this.board);
+
+				} else if (Integer.parseInt(menuInput) == 4) {
+					player2 = new AiPlayer('O', 2, this.board);
+
+				}
+
 				gameLoop();
+				return;
 
 			} catch (NumberFormatException e) {
 				System.out.println("Error: Invalid input");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 	}
 
 	public void play() {
-		System.out.println("Welcome to Tic Tac Toe!");
-		System.out.println("Select Game Mode:");
-		System.out.println("1. 2 Player");
-		System.out.println("2. Easy");
-		System.out.println("3. Medium");
-		System.out.println("4. Hard");
 		while (true) {
+			System.out.println("Welcome to Tic Tac Toe!");
+			System.out.println("Select Game Mode:");
+			System.out.println("1. 2 Player");
+			System.out.println("2. Easy");
+			System.out.println("3. Medium");
+			System.out.println("4. Hard");
+			System.out.println("5. Exit");
+
 			try {
 				String input = reader.readLine();
 
@@ -96,18 +112,19 @@ public class TicTacToe {
 					setUp(input);
 					break;
 				case ("2"):
-					// TODO
+					setUp(input);
 					break;
 				case ("3"):
-					// TODO
+					setUp(input);
 					break;
 				case ("4"):
-					// TODO
+					setUp(input);
 					break;
+				case ("5"):
+					System.exit(0);
 				default:
 					throw new InputMismatchException();
 				}
-
 			} catch (InputMismatchException e) {
 				System.out.println("Error: Invalid input");
 			} catch (Exception e) {

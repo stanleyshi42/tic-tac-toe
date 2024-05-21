@@ -8,11 +8,11 @@ import java.util.concurrent.Executors;
 
 public class InputGetter {
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	ExecutorService executor = Executors.newSingleThreadExecutor();
 	String input;
-	ExecutorService pool = Executors.newFixedThreadPool(10);
 
 	private InputGetter() {
-		
+
 	}
 
 	private String read() throws IOException {
