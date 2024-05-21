@@ -80,7 +80,7 @@ public class TicTacToe {
 					this.board = new Board(dimensions);
 				}
 
-				// Make a player or AI player
+				// Make a human or AI player
 				if (Integer.parseInt(menuInput) == 1) {
 					player2 = new Player('O');
 				} else if (Integer.parseInt(menuInput) == 2) {

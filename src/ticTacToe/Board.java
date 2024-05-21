@@ -63,7 +63,6 @@ public class Board {
 		return false;
 	}
 
-	// TODO reduce redundant checks
 	private boolean checkVerticalWin(char mark, int j) {
 		int count = this.dimensions;
 		for (int i = 0; i < this.dimensions; i++) {
