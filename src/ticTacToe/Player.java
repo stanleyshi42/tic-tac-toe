@@ -21,12 +21,11 @@ public class Player {
 		System.out.println("You have " + seconds + " seconds to make a move!");
 		System.out.println("Select a row: ");
 
-		// input = reader.readLine();
 		input = getter.input;
 		while (input == null) {
-			Thread.sleep(50);
+			Thread.sleep(100);
 			input = getter.input;
-			if (getter.timeOut) {
+			if (getter.timeout) {
 				getter.executor.shutdownNow();
 				throw new TimeoutException();
 			}
@@ -36,19 +35,18 @@ public class Player {
 		int rowInput = Integer.parseInt(input);
 
 		System.out.println("Select a column: ");
-		// input = reader.readLine();
+
 		getter = new InputGetter(seconds);
 		input = getter.input;
 		while (input == null) {
-			Thread.sleep(50);
+			Thread.sleep(100);
 			input = getter.input;
-			if (getter.timeOut) {
+			if (getter.timeout) {
 				getter.executor.shutdownNow();
 				throw new TimeoutException();
 			}
 		}
 		getter.executor.shutdownNow();
-
 		int colInput = Integer.parseInt(input);
 
 		// Return player's move as an array

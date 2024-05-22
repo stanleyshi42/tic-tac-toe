@@ -2,7 +2,7 @@ package ticTacToe;
 
 //A Tic Tac Toe board with variable size
 public class Board {
-	public char[][] board;
+	public char[][] grid;
 	public int dimensions;
 
 	// Default constructor
@@ -12,11 +12,11 @@ public class Board {
 
 	public Board(int dimensions) {
 		this.dimensions = dimensions;
-		this.board = new char[dimensions][dimensions];
+		this.grid = new char[dimensions][dimensions];
 
 		for (int i = 0; i < dimensions; i++) {
 			for (int j = 0; j < dimensions; j++) {
-				this.board[i][j] = ' ';
+				this.grid[i][j] = ' ';
 			}
 		}
 
@@ -25,10 +25,10 @@ public class Board {
 	// Marks the board with an X or O
 	public boolean mark(char mark, int x, int y) {
 		// Checks if space is already marked
-		if (board[x][y] != ' ')
+		if (grid[x][y] != ' ')
 			return false;
 
-		board[x][y] = mark;
+		grid[x][y] = mark;
 		return true;
 	}
 
@@ -36,7 +36,7 @@ public class Board {
 		for (int i = 0; i < dimensions; i++) {
 			for (int j = 0; j < dimensions; j++) {
 				// If there's an empty space, it's not a draw
-				if (this.board[i][j] == ' ') {
+				if (this.grid[i][j] == ' ') {
 					return false;
 				}
 			}
@@ -48,7 +48,7 @@ public class Board {
 	public boolean checkWin(char mark) {
 		for (int j = 0; j < this.dimensions; j++) {
 			for (int i = 0; i < this.dimensions; i++) {
-				if (this.board[i][j] == mark) {
+				if (this.grid[i][j] == mark) {
 					if (checkVerticalWin(mark, j)) {
 						return true;
 					}
@@ -71,7 +71,7 @@ public class Board {
 	private boolean checkVerticalWin(char mark, int j) {
 		int count = this.dimensions;
 		for (int i = 0; i < this.dimensions; i++) {
-			if (mark == this.board[i][j]) {
+			if (mark == this.grid[i][j]) {
 				count--;
 				if (count <= 0)
 					return true;
@@ -84,7 +84,7 @@ public class Board {
 	private boolean checkHorizontalWin(char mark, int i) {
 		int count = this.dimensions;
 		for (int j = 0; j < this.dimensions; j++) {
-			if (mark == this.board[i][j]) {
+			if (mark == this.grid[i][j]) {
 				count--;
 				if (count <= 0)
 					return true;
@@ -97,7 +97,7 @@ public class Board {
 	private boolean checkLeftDiagonalWin(char mark) {
 		int count = this.dimensions;
 		for (int i = 0; i < this.dimensions; i++) {
-			if (mark == this.board[i][i]) {
+			if (mark == this.grid[i][i]) {
 				count--;
 				if (count <= 0)
 					return true;
@@ -110,7 +110,7 @@ public class Board {
 	private boolean checkRightDiagonalWin(char mark) {
 		int count = this.dimensions;
 		for (int i = 0; i < this.dimensions; i++) {
-			if (mark == this.board[i][dimensions - 1 - i]) {
+			if (mark == this.grid[i][dimensions - 1 - i]) {
 				count--;
 				if (count <= 0)
 					return true;
@@ -125,7 +125,7 @@ public class Board {
 			System.out.print(i + " "); // Print row numbers
 			for (int j = 0; j < this.dimensions; j++) {
 				System.out.print("|");
-				System.out.print(this.board[i][j]);
+				System.out.print(this.grid[i][j]);
 			}
 			System.out.println("|");
 		}

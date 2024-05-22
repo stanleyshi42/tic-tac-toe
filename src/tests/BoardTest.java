@@ -11,10 +11,10 @@ public class BoardTest {
 		board.mark('X', 1, 0);
 		board.mark('O', 1, 1);
 		board.mark('O', 1, 0);
-		
-		assertEquals('X', board.board[1][0]);
-		assertEquals('O', board.board[1][1]);
-		assertEquals(' ', board.board[1][2]);
+
+		assertEquals('X', board.grid[1][0]);
+		assertEquals('O', board.grid[1][1]);
+		assertEquals(' ', board.grid[1][2]);
 	}
 
 	@Test

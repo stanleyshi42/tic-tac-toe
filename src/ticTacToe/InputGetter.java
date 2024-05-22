@@ -10,7 +10,7 @@ public class InputGetter {
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	ExecutorService executor = Executors.newCachedThreadPool();
 	String input;
-	boolean timeOut = false;
+	boolean timeout = false;
 
 	public InputGetter() {
 		executor.execute(() -> {
@@ -50,7 +50,7 @@ public class InputGetter {
 				Thread.sleep(1000);
 				sec--;
 			}
-			timeOut = true;
+			timeout = true;
 			executor.shutdownNow();
 		} catch (InterruptedException e) {
 			// Ignore exception
