@@ -8,10 +8,11 @@ import java.io.IOException;
 
 public class InputGetter {
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	ExecutorService executor = Executors.newSingleThreadExecutor();
+	ExecutorService executor = Executors.newCachedThreadPool();
 	String input;
+	boolean timeOut = false;
 
-	private InputGetter() {
+	public InputGetter() {
 		executor.execute(() -> {
 			try {
 				this.input = read();
@@ -21,11 +22,11 @@ public class InputGetter {
 		});
 	}
 
-	private InputGetter(int sec) {
+	public InputGetter(int sec) {
 		executor.execute(() -> {
 			try {
 				this.input = read();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
@@ -43,17 +44,18 @@ public class InputGetter {
 	}
 
 	// Stops all threads when timer ends
-	private void timer(int sec) throws InterruptedException {
-		Thread.sleep(sec * 1000);
-		executor.shutdownNow();
-	}
+	private void timer(int sec) {
+		try {
+			while (sec > 0) {
+				Thread.sleep(1000);
+				sec--;
+			}
+			timeOut = true;
+			executor.shutdownNow();
+		} catch (InterruptedException e) {
+			// Ignore exception
+		}
 
-	public static String getInput() {
-		return new InputGetter().input;
-	}
-
-	public static String getTimedInput(int sec) {
-		return new InputGetter(sec).input;
 	}
 
 }

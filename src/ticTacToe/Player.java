@@ -12,18 +12,46 @@ public class Player {
 		this.mark = mark;
 	}
 
-	int[] turn() throws IOException {
-		System.out.println("Select a row: ");
+	// Prompt player for their move
+	int[] turn() throws IOException, InterruptedException, TimeoutException {
 		String input;
-		input = reader.readLine();
+		int seconds = 10; // Amount of time to make a move
+		InputGetter getter = new InputGetter(seconds);
+
+		System.out.println("You have " + seconds + " seconds to make a move!");
+		System.out.println("Select a row: ");
+
+		// input = reader.readLine();
+		input = getter.input;
+		while (input == null) {
+			Thread.sleep(50);
+			input = getter.input;
+			if (getter.timeOut) {
+				getter.executor.shutdownNow();
+				throw new TimeoutException();
+			}
+
+		}
+		getter.executor.shutdownNow();
 		int rowInput = Integer.parseInt(input);
 
 		System.out.println("Select a column: ");
-		input = reader.readLine();
+		// input = reader.readLine();
+		getter = new InputGetter(seconds);
+		input = getter.input;
+		while (input == null) {
+			Thread.sleep(50);
+			input = getter.input;
+			if (getter.timeOut) {
+				getter.executor.shutdownNow();
+				throw new TimeoutException();
+			}
+		}
+		getter.executor.shutdownNow();
+
 		int colInput = Integer.parseInt(input);
 
-		// Return player's choice as an array
+		// Return player's move as an array
 		return new int[] { rowInput, colInput };
-
 	}
 }

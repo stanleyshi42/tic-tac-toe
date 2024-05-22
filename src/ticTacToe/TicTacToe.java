@@ -17,15 +17,15 @@ public class TicTacToe {
 	}
 
 	private void gameLoop() {
-		boolean player1Turn = true;
+		boolean isPlayer1Turn = true;
 		while (true) {
 			try {
-				char mark;
+				char mark; // Either X or O
 				int[] coords; // Coordinates for the player's move
 
 				board.printBoard();
 
-				if (player1Turn) {
+				if (isPlayer1Turn) {
 					System.out.println("Player 1's Turn!");
 					mark = player1.mark;
 					coords = player1.turn();
@@ -39,7 +39,7 @@ public class TicTacToe {
 					throw new Exception("Error: Space already filled. Try again");
 				}
 
-				player1Turn = !player1Turn; // Alternate turns
+				isPlayer1Turn = !isPlayer1Turn; // Alternate turns
 				if (board.checkWin(mark)) {
 					board.printBoard();
 					System.out.println(mark + " wins!!!!!!");
@@ -59,6 +59,9 @@ public class TicTacToe {
 				System.out.println("Error: Invalid input");
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("Error: Invalid input");
+			} catch (TimeoutException e) {
+				System.out.println("Time's up!");
+				isPlayer1Turn = !isPlayer1Turn; // Alternate turns
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -113,9 +116,7 @@ public class TicTacToe {
 			System.out.println("5. Exit");
 
 			try {
-				// String input = reader.readLine();
-				String input = InputGetter.getTimedInput(4);
-				Thread.sleep(5000);
+				String input = reader.readLine();
 
 				switch (input) {
 				case ("1"):
