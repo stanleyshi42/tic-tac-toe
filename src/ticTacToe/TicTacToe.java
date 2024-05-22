@@ -57,12 +57,8 @@ public class TicTacToe {
 
 			} catch (NumberFormatException e) {
 				System.out.println("Error: Invalid input");
-				e.printStackTrace();
-				return;
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("Error: Invalid input");
-				e.printStackTrace();
-				return;
 			} catch (TimeoutException e) {
 				System.out.println("Time's up!");
 				isPlayer1Turn = !isPlayer1Turn; // Alternate turns

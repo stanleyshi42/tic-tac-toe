@@ -14,7 +14,7 @@ public class AiPlayer extends Player {
 
 	// AI makes a move based on its difficulty
 	@Override
-	int[] turn() {
+	public int[] turn() {
 		switch (difficulty) {
 		case (0):
 			return easyTurn();
@@ -28,14 +28,14 @@ public class AiPlayer extends Player {
 	}
 
 	// Makes a random move
-	int[] easyTurn() {
+	private int[] easyTurn() {
 		return randomCoords();
 	}
 
 	// Makes a random move unless:
 	// It can make a winning move or
 	// Block the opponent's winning move
-	int[] mediumTurn() {
+	private int[] mediumTurn() {
 		// Check for winning moves
 		for (int i = 0; i < board.dimensions; i++) {
 			for (int j = 0; j < board.dimensions; j++) {
@@ -95,7 +95,7 @@ public class AiPlayer extends Player {
 	}
 
 	// Look for a horitontal winning move
-	int[] checkHoritzontalMoves(char mark, int x, int y) {
+	private int[] checkHoritzontalMoves(char mark, int x, int y) {
 		int xMove, yMove;
 
 		// i offsets the current horizontal coordinate
@@ -129,7 +129,7 @@ public class AiPlayer extends Player {
 	}
 
 	// Look for a vertical winning move
-	int[] checkVerticalMoves(char mark, int x, int y) {
+	private int[] checkVerticalMoves(char mark, int x, int y) {
 		int xMove, yMove;
 
 		// i offsets the current vertical coordinate
@@ -163,7 +163,7 @@ public class AiPlayer extends Player {
 	}
 
 	// Look for a left diagonal winning move
-	int[] checkLeftDiagonalMoves(char mark, int x, int y) {
+	private int[] checkLeftDiagonalMoves(char mark, int x, int y) {
 		int xMove, yMove;
 
 		for (int i = -2; i < 3; i++) {
@@ -201,7 +201,7 @@ public class AiPlayer extends Player {
 	}
 
 	// Look for a right diagonal winning move
-	int[] checkRightDiagonalMoves(char mark, int x, int y) {
+	private int[] checkRightDiagonalMoves(char mark, int x, int y) {
 		int xMove, yMove;
 
 		for (int i = -2; i < 3; i++) {
@@ -215,7 +215,7 @@ public class AiPlayer extends Player {
 					} else if (i == -1) {
 						xMove = x - i + 1;
 						yMove = y + i - 1;
-					} else if (i == 1) { 
+					} else if (i == 1) {
 						xMove = x - i - 1;
 						yMove = y + i + 1;
 					} else if (i == 2) {
@@ -239,11 +239,17 @@ public class AiPlayer extends Player {
 		return new int[] { -1, -1 };
 	}
 
+	// TODO
+	private int[] hardTurn() {
+
+		return new int[] { -1, -1 };
+	}
+
+	// Return a random coordinate that is not already filled
 	public int[] randomCoords() {
 		Random rand = new Random();
 		int i, j;
 
-		// Generate a random coordinate that is not already filled
 		do {
 			i = rand.nextInt(this.board.dimensions);
 			j = rand.nextInt(this.board.dimensions);
