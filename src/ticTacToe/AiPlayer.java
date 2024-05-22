@@ -213,13 +213,13 @@ public class AiPlayer extends Player {
 						xMove = x - i - 1;
 						yMove = y + i + 1;
 					} else if (i == -1) {
-						xMove = x + i + 1;
+						xMove = x - i + 1;
 						yMove = y + i - 1;
-					} else if (i == 1) {
-						xMove = x + i - 1;
+					} else if (i == 1) { 
+						xMove = x - i - 1;
 						yMove = y + i + 1;
 					} else if (i == 2) {
-						xMove = x + i + 1;
+						xMove = x - i + 1;
 						yMove = y + i - 1;
 					} else {
 						xMove = -1;
