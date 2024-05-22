@@ -36,9 +36,6 @@ public class AiPlayer extends Player {
 	// It can make a winning move or
 	// Block the opponent's winning move
 	int[] mediumTurn() {
-		int x = -1;
-		int y = -1;
-
 		// Check for winning moves
 		for (int i = 0; i < board.dimensions; i++) {
 			for (int j = 0; j < board.dimensions; j++) {
@@ -70,208 +67,25 @@ public class AiPlayer extends Player {
 		for (int i = 0; i < board.dimensions; i++) {
 			for (int j = 0; j < board.dimensions; j++) {
 				if (board.grid[i][j] == 'X') {
-					// Blocks opponent's horizontal wins
-					if (j + 1 < board.dimensions && j + 2 < board.dimensions) {
-						if (board.grid[i][j + 1] == 'X') {
-							x = i;
-							y = j + 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i][j + 2] == 'X') {
-							x = i;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
+					// Checks for horizontal wins
+					int[] move = checkHoritzontalMoves('X', i, j);
+					if (move[0] != -1 && move[1] != -1)
+						return move;
 
-					}
-					if (j - 1 >= 0 && j + 1 < board.dimensions) {
-						if (board.grid[i][j - 1] == 'X') {
-							x = i;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i][j + 1] == 'X') {
-							x = i;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
+					// Checks for vertical wins
+					move = checkVerticalMoves('X', i, j);
+					if (move[0] != -1 && move[1] != -1)
+						return move;
 
-					}
-					if (j - 1 >= 0 && j - 2 >= 0) {
-						if (board.grid[i][j - 1] == 'X') {
-							x = i;
-							y = j - 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i][j - 1] == 'X') {
-							x = i;
-							y = j - 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
+					// Checks for left diagonal wins
+					move = checkLeftDiagonalMoves('X', i, j);
+					if (move[0] != -1 && move[1] != -1)
+						return move;
 
-					}
-					// Blocks opponent's vertical wins
-					if (i + 1 < board.dimensions && i + 2 < board.dimensions) {
-						if (board.grid[i + 1][j] == 'X') {
-							x = i + 2;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 2][j] == 'X') {
-							x = i + 1;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && i + 1 < board.dimensions) {
-						if (board.grid[i - 1][j] == 'X') {
-							x = i + 1;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 1][j] == 'X') {
-							x = i - 1;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && i - 2 >= 0) {
-						if (board.grid[i - 1][j] == 'X') {
-							x = i - 2;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i - 2][j] == 'X') {
-							x = i - 1;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-
-					// Blocks opponent's left diagonal wins
-					if (i + 1 < board.dimensions && j + 1 < board.dimensions && i + 2 < board.dimensions
-							&& j + 2 < board.dimensions) {
-						if (board.grid[i + 1][j + 1] == 'X') {
-							x = i + 2;
-							y = j + 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 2][j + 2] == 'X') {
-							x = i + 1;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && j - 1 >= 0 && i + 1 < board.dimensions && j + 1 < board.dimensions) {
-						if (board.grid[i - 1][j - 1] == 'X') {
-							x = i + 1;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 1][j + 1] == 'X') {
-							x = i - 1;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && j - 1 >= 0 && i - 2 >= 0 && j - 2 >= 0) {
-						if (board.grid[i - 1][j - 1] == 'X') {
-							x = i - 2;
-							y = j - 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i - 2][j - 2] == 'X') {
-							x = i - 1;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-
-					// Blocks opponent's right diagonal wins
-					if (i + 1 < board.dimensions && j - 1 >= 0 && i + 2 < board.dimensions && j - 2 >= 0) {
-						if (board.grid[i + 1][j - 1] == 'X') {
-							x = i + 2;
-							y = j - 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 2][j - 2] == 'X') {
-							x = i + 1;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && j + 1 < board.dimensions && i + 1 < board.dimensions && j - 1 >= 0) {
-						if (board.grid[i - 1][j + 1] == 'X') {
-							x = i + 1;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 1][j - 1] == 'X') {
-							x = i - 1;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && j + 1 < board.dimensions && i - 2 >= 0 && j + 2 > board.dimensions) {
-						if (board.grid[i - 1][j + 1] == 'X') {
-							x = i - 2;
-							y = j + 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i - 2][j + 2] == 'X') {
-							x = i - 1;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
+					// Checks for right diagonal wins
+					move = checkRightDiagonalMoves('X', i, j);
+					if (move[0] != -1 && move[1] != -1)
+						return move;
 				}
 			}
 		}
