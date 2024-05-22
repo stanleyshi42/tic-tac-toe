@@ -6,7 +6,7 @@ public class AiPlayer extends Player {
 	int difficulty; // 0 = Easy, 1 = Medium, 2 = Hard
 	Board board;
 
-	AiPlayer(char mark, int difficulty, Board board) {
+	public AiPlayer(char mark, int difficulty, Board board) {
 		super(mark);
 		this.difficulty = difficulty;
 		this.board = board;
@@ -458,10 +458,11 @@ public class AiPlayer extends Player {
 			}
 		}
 
+		// Make a random move if no move was chosen
 		return randomCoords();
 	}
 
-	private int[] randomCoords() {
+	public int[] randomCoords() {
 		Random rand = new Random();
 		int i, j;
 

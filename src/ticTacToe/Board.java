@@ -1,10 +1,15 @@
 package ticTacToe;
 
+//A Tic Tac Toe board with variable size
 public class Board {
-	char[][] board;
-	int dimensions;
+	public char[][] board;
+	public int dimensions;
 
-	// A Tic Tac Toe board with variable size
+	// Default constructor
+	public Board() {
+		this(3);
+	}
+
 	public Board(int dimensions) {
 		this.dimensions = dimensions;
 		this.board = new char[dimensions][dimensions];
@@ -18,7 +23,7 @@ public class Board {
 	}
 
 	// Marks the board with an X or O
-	boolean mark(char mark, int x, int y) {
+	public boolean mark(char mark, int x, int y) {
 		// Checks if space is already marked
 		if (board[x][y] != ' ')
 			return false;
@@ -27,7 +32,7 @@ public class Board {
 		return true;
 	}
 
-	boolean checkDraw() {
+	public boolean checkDraw() {
 		for (int i = 0; i < dimensions; i++) {
 			for (int j = 0; j < dimensions; j++) {
 				// If there's an empty space, it's not a draw
@@ -40,7 +45,7 @@ public class Board {
 	}
 
 	// Checks board for a win
-	boolean checkWin(char mark) {
+	public boolean checkWin(char mark) {
 		for (int j = 0; j < this.dimensions; j++) {
 			for (int i = 0; i < this.dimensions; i++) {
 				if (this.board[i][j] == mark) {

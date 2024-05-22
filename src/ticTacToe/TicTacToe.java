@@ -113,7 +113,9 @@ public class TicTacToe {
 			System.out.println("5. Exit");
 
 			try {
-				String input = reader.readLine();
+				// String input = reader.readLine();
+				String input = InputGetter.getTimedInput(4);
+				Thread.sleep(5000);
 
 				switch (input) {
 				case ("1"):
@@ -137,6 +139,7 @@ public class TicTacToe {
 				System.out.println("Error: Invalid input");
 			} catch (Exception e) {
 				e.printStackTrace();
+				return;
 			}
 		}
 
