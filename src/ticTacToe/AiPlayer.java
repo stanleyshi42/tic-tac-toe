@@ -49,155 +49,19 @@ public class AiPlayer extends Player {
 						return move;
 
 					// Checks for vertical wins
-					if (i + 1 < board.dimensions && i + 2 < board.dimensions) {
-						if (board.grid[i + 1][j] == mark) {
-							x = i + 2;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 2][j] == mark) {
-							x = i + 1;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && i + 1 < board.dimensions) {
-						if (board.grid[i - 1][j] == mark) {
-							x = i + 1;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 1][j] == mark) {
-							x = i - 1;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && i - 2 >= 0) {
-						if (board.grid[i - 1][j] == mark) {
-							x = i - 2;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i - 2][j] == mark) {
-							x = i - 1;
-							y = j;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
+					move = checkVerticalMoves(mark, i, j);
+					if (move[0] != -1 && move[1] != -1)
+						return move;
 
 					// Checks for left diagonal wins
-					if (i + 1 < board.dimensions && j + 1 < board.dimensions && i + 2 < board.dimensions
-							&& j + 2 < board.dimensions) {
-						if (board.grid[i + 1][j + 1] == mark) {
-							x = i + 2;
-							y = j + 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 2][j + 2] == mark) {
-							x = i + 1;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && j - 1 >= 0 && i + 1 < board.dimensions && j + 1 < board.dimensions) {
-						if (board.grid[i - 1][j - 1] == mark) {
-							x = i + 1;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 1][j + 1] == mark) {
-							x = i - 1;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && j - 1 >= 0 && i - 2 >= 0 && j - 2 >= 0) {
-						if (board.grid[i - 1][j - 1] == mark) {
-							x = i - 2;
-							y = j - 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i - 2][j - 2] == mark) {
-							x = i - 1;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
+					move = checkLeftDiagonalMoves(mark, i, j);
+					if (move[0] != -1 && move[1] != -1)
+						return move;
 
 					// Checks for right diagonal wins
-					if (i + 1 < board.dimensions && j - 1 >= 0 && i + 2 < board.dimensions && j - 2 >= 0) {
-						if (board.grid[i + 1][j - 1] == mark) {
-							x = i + 2;
-							y = j - 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 2][j - 2] == mark) {
-							x = i + 1;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && j + 1 < board.dimensions && i + 1 < board.dimensions && j - 1 >= 0) {
-						if (board.grid[i - 1][j + 1] == mark) {
-							x = i + 1;
-							y = j - 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i + 1][j - 1] == mark) {
-							x = i - 1;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
-					if (i - 1 >= 0 && j + 1 < board.dimensions && i - 2 >= 0 && j + 2 > board.dimensions) {
-						if (board.grid[i - 1][j + 1] == mark) {
-							x = i - 2;
-							y = j + 2;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-						if (board.grid[i - 2][j + 2] == mark) {
-							x = i - 1;
-							y = j + 1;
-							if (board.grid[x][y] == ' ') {
-								return new int[] { x, y };
-							}
-						}
-					}
+					move = checkRightDiagonalMoves(mark, i, j);
+					if (move[0] != -1 && move[1] != -1)
+						return move;
 				}
 			}
 		}
@@ -473,6 +337,83 @@ public class AiPlayer extends Player {
 
 					yMove = y;
 					if (xMove >= 0 && xMove < board.dimensions) {
+						if (board.grid[xMove][yMove] == ' ') {
+							return new int[] { xMove, yMove };
+						}
+					}
+				}
+			}
+		}
+
+		return new int[] { -1, -1 };
+	}
+
+	// Look for a left diagonal winning move
+	int[] checkLeftDiagonalMoves(char mark, int x, int y) {
+		int xMove, yMove;
+
+		for (int i = -2; i < 3; i++) {
+			if (i == 0)
+				continue; // Don't check current square
+			if (x + i < board.dimensions && x + i >= 0 && y + i < board.dimensions && y + i >= 0) {
+				if (board.grid[x + i][y + i] == mark) {
+					if (i == -2) {
+						xMove = x + i + 1;
+						yMove = y + i + 1;
+					} else if (i == -1) {
+						xMove = x + i - 1;
+						yMove = y + i - 1;
+					} else if (i == 1) {
+						xMove = x + i + 1;
+						yMove = y + i + 1;
+					} else if (i == 2) {
+						xMove = x + i - 1;
+						yMove = y + i - 1;
+					} else {
+						xMove = -1;
+						yMove = -1;
+					}
+
+					if (xMove >= 0 && xMove < board.dimensions && yMove >= 0 && yMove < board.dimensions) {
+						if (board.grid[xMove][yMove] == ' ') {
+							return new int[] { xMove, yMove };
+						}
+					}
+				}
+			}
+		}
+
+		return new int[] { -1, -1 };
+	}
+
+	// Look for a right diagonal winning move
+	int[] checkRightDiagonalMoves(char mark, int x, int y) {
+		int xMove, yMove;
+
+		for (int i = -2; i < 3; i++) {
+			if (i == 0)
+				continue; // Don't check current square
+			if (x - i < board.dimensions && x - i >= 0 && y + i < board.dimensions && y + i >= 0) {
+				if (board.grid[x - i][y + i] == mark) {
+					if (i == -2) {
+						xMove = x - i - 1;
+						yMove = y + i + 1;
+					} else if (i == -1) {
+						xMove = x + i + 1;
+						yMove = y + i - 1;
+					} else if (i == 1) {
+						xMove = x + i - 1;
+						yMove = y + i + 1;
+					} else if (i == 2) {
+						xMove = x + i + 1;
+						yMove = y + i - 1;
+					} else {
+						xMove = -1;
+						yMove = -1;
+					}
+
+					if (xMove >= 0 && xMove < board.dimensions && yMove >= 0 && yMove < board.dimensions) {
+						System.out.println(xMove + " " + yMove);
 						if (board.grid[xMove][yMove] == ' ') {
 							return new int[] { xMove, yMove };
 						}
